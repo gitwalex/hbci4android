@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hbci4android.iml" filepath="$PROJECT_DIR$/hbci4android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thirdparty/cryptalgs4java/thirdparty_cryptalgs4java.iml" filepath="$PROJECT_DIR$/thirdparty/cryptalgs4java/thirdparty_cryptalgs4java.iml" />
+    </modules>
+  </component>
+</project>
+
