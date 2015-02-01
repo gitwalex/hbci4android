@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="hbci4android:jar">
+    <output-path>$PROJECT_DIR$/../MonMa/hbci4android</output-path>
+    <root id="archive" name="hbci4android.jar">
+      <element id="module-output" name="hbci4android" />
+      <element id="module-output" name="thirdparty_cryptalgs4java" />
+    </root>
+  </artifact>
+</component>
