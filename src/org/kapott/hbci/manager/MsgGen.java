@@ -75,15 +75,13 @@ public final class MsgGen {
     /* Initialisieren eines Message-Generators. Der <syntaFileStream> ist ein
      * Stream, mit dem eine XML-Datei mit einer HBCI-Syntaxspezifikation
      * eingelesen wird */
-    public MsgGen (InputStream syntaxFileStream) {
+    public MsgGen (InputStream syntaxFileStream, String hbciversion) {
         try {
             HBCICallback callback = HBCIUtilsInternal.getCallback();
             try {
                 HBCICallbackAndroid androidCallback =
                         (HBCICallbackAndroid) callback;
-                String hbciversion =
-                        HBCIUtils.getParam("client.passport.hbci" + ".version");
-                syntax = androidCallback.getHBCISpezifikation(null);
+                syntax = androidCallback.getHBCISpezifikation(hbciversion);
             } catch (ClassCastException e) {
                 DocumentBuilderFactory dbf =
                         DocumentBuilderFactory.newInstance();
@@ -102,6 +100,10 @@ public final class MsgGen {
         } catch (Exception e) {
             throw new HBCI_Exception(HBCIUtilsInternal.getLocMsg("EXCMSG_MSGGEN_STXFILE"), e);
         }
+    }
+
+    private static String pathWithDot (String path) {
+        return (path.length() == 0) ? path : (path + ".");
     }
 
     /**
@@ -303,10 +305,6 @@ public final class MsgGen {
                 }
             }
         }
-    }
-
-    private static String pathWithDot (String path) {
-        return (path.length() == 0) ? path : (path + ".");
     }
 
     public String get (String key) {
