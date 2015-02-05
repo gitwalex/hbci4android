@@ -20,7 +20,6 @@
 package org.kapott.hbci.manager;
 
 import org.kapott.hbci.callback.HBCICallback;
-import org.kapott.hbci.callback.HBCICallbackAndroid;
 import org.kapott.hbci.exceptions.HBCI_Exception;
 import org.kapott.hbci.protocol.MSG;
 import org.kapott.hbci.protocol.factory.MSGFactory;
@@ -32,10 +31,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
-import javax.xml.parsers.ParserConfigurationException;
 /* Message-Generator-Klasse. Diese Klasse verwaltet die Syntax-Spezifikation
  * f�r die zu verwendende HBCI-Version. Hiermit wird das Erzeugen von
  * HBCI-Nachrichten gekapselt.
@@ -78,25 +74,11 @@ public final class MsgGen {
     public MsgGen (InputStream syntaxFileStream, String hbciversion) {
         try {
             HBCICallback callback = HBCIUtilsInternal.getCallback();
-            try {
-                HBCICallbackAndroid androidCallback =
-                        (HBCICallbackAndroid) callback;
-                syntax = androidCallback.getHBCISpezifikation(hbciversion);
-            } catch (ClassCastException e) {
-                DocumentBuilderFactory dbf =
-                        DocumentBuilderFactory.newInstance();
-                dbf.setIgnoringComments(true);
-                DocumentBuilder db = dbf.newDocumentBuilder();
-                dbf.setValidating(true);
-                syntax = db.parse(syntaxFileStream);
-            } finally {
-                syntaxFileStream.close();
-            }
+            syntax = callback.getHBCISpezifikation(hbciversion);
+            syntaxFileStream.close();
             clientValues = new Hashtable<String, String>();
         } catch (FactoryConfigurationError e) {
             throw new HBCI_Exception(HBCIUtilsInternal.getLocMsg("EXCMSG_MSGGEN_DBFAC"), e);
-        } catch (ParserConfigurationException e) {
-            throw new HBCI_Exception(HBCIUtilsInternal.getLocMsg("EXCMSG_MSGGEN_DB"), e);
         } catch (Exception e) {
             throw new HBCI_Exception(HBCIUtilsInternal.getLocMsg("EXCMSG_MSGGEN_STXFILE"), e);
         }

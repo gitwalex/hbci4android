@@ -1,4 +1,3 @@
-
 /*  $Id: AbstractHBCICallback.java,v 1.1 2011/05/04 22:37:52 willuhn Exp $
 
     This file is part of HBCI4Java
@@ -18,78 +17,72 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
 package org.kapott.hbci.callback;
 
+import org.kapott.hbci.passport.HBCIPassport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.kapott.hbci.passport.HBCIPassport;
-
-/** Diese Klasse dient als Basisklasse für allen Callback-Klassen. Eine Anwendung sollte
-    zur Erstellung einer eigenen Callback-Klasse diese oder eine der schon bereitgestellten
-    "fertigen" Klassen ({@link org.kapott.hbci.callback.HBCICallbackConsole},
-    {@link org.kapott.hbci.callback.HBCICallbackSwing}) erweitern */
-public abstract class AbstractHBCICallback
-    implements HBCICallback
-{
-    /** Erzeugt einen Log-Eintrag. Diese Methode wird von den mitgelieferten
-     * Callback-Klassen für die Erzeugung von Log-Einträgen verwendet. Um 
-     * ein eigenes Format für die Log-Eintrage zu definieren, kann diese
-     * Methode mit einer eigenen Implementierung überschrieben werden.<br/>
-     * Die Parameter entsprechen denen der 
-     * {@link HBCICallback#log(String, int, Date, StackTraceElement) log}-Methode
+/**
+ * Diese Klasse dient als Basisklasse fï¿½r allen Callback-Klassen. Eine Anwendung
+ * sollte zur Erstellung einer eigenen Callback-Klasse diese oder eine der schon
+ * bereitgestellten
+ */
+public abstract class AbstractHBCICallback implements HBCICallback {
+    /**
+     * Erzeugt einen Log-Eintrag. Diese Methode wird von den mitgelieferten
+     * Callback-Klassen fï¿½r die Erzeugung von Log-Eintrï¿½gen verwendet. Um ein
+     * eigenes Format fï¿½r die Log-Eintrage zu definieren, kann diese Methode mit
+     * einer eigenen Implementierung ï¿½berschrieben werden.<br/> Die Parameter
+     * entsprechen denen der {@link HBCICallback#log(String, int, Date,
+     * StackTraceElement) log}-Methode
+     *
      * @return ein Log-Eintrag
      */
-    protected String createDefaultLogLine(String msg, int level, Date date, StackTraceElement trace)
-    {
-        String[] levels={"NON","ERR","WRN","INF","DBG","DB2","INT"};
-        StringBuffer ret=new StringBuffer(128);
+    protected String createDefaultLogLine (String msg, int level, Date date, StackTraceElement trace) {
+        String[] levels = {"NON", "ERR", "WRN", "INF", "DBG", "DB2", "INT"};
+        StringBuffer ret = new StringBuffer(128);
         ret.append("<").append(levels[level]).append("> ");
-        
-        SimpleDateFormat df=new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss.SSS");
         ret.append("[").append(df.format(date)).append("] ");
-        
-        Thread thread=Thread.currentThread();
+        Thread thread = Thread.currentThread();
         ret.append("[").append(thread.getThreadGroup().getName());
         ret.append("/").append(thread.getName()).append("] ");
-        
-        String classname=trace.getClassName();
-        String hbciname="org.kapott.hbci.";
-        if (classname!=null && classname.startsWith(hbciname))
+        String classname = trace.getClassName();
+        String hbciname = "org.kapott.hbci.";
+        if (classname != null && classname.startsWith(hbciname)) {
             ret.append(classname.substring((hbciname).length())).append(": ");
-        
-        if (msg==null)
-            msg="";
-        StringBuffer escapedString=new StringBuffer();
-        int len=msg.length();
-        
-        for (int i=0;i<len;i++) {
-            char ch=msg.charAt(i);
-            int  x=ch;
-            
-            if ((x<26 && x!=9 && x!=10 && x!=13) || ch=='\\') {
-                String temp=Integer.toString(x,16);
-                if (temp.length()!=2)
-                    temp="0"+temp;
+        }
+        if (msg == null) {
+            msg = "";
+        }
+        StringBuffer escapedString = new StringBuffer();
+        int len = msg.length();
+        for (int i = 0; i < len; i++) {
+            char ch = msg.charAt(i);
+            int x = ch;
+            if ((x < 26 && x != 9 && x != 10 && x != 13) || ch == '\\') {
+                String temp = Integer.toString(x, 16);
+                if (temp.length() != 2) {
+                    temp = "0" + temp;
+                }
                 escapedString.append("\\").append(temp);
+            } else {
+                escapedString.append(ch);
             }
-            else escapedString.append(ch);
         }
         ret.append(escapedString);
         return ret.toString();
     }
 
-    public synchronized final void status(HBCIPassport passport,int statusTag,Object o)
-    {
-        status(passport,statusTag,new Object[] {o});
+    public synchronized final void status (HBCIPassport passport, int statusTag, Object o) {
+        status(passport, statusTag, new Object[] {o});
     }
-    
-    /** Standard-Verhalten - gibt für alle Callbacks <code>false</code> (= asynchrone
-     * Callback-Behandlung) zurück.*/
-    public boolean useThreadedCallback(HBCIPassport passport,int reason,String msg,
-                                       int datatype,StringBuffer retData)
-    {
+
+    /**
+     * Standard-Verhalten - gibt fï¿½r alle Callbacks <code>false</code> (=
+     * asynchrone Callback-Behandlung) zurï¿½ck.
+     */
+    public boolean useThreadedCallback (HBCIPassport passport, int reason, String msg, int datatype, StringBuffer retData) {
         return false;
     }
 }
