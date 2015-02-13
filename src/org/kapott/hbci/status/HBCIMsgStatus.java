@@ -21,31 +21,30 @@
 
 package org.kapott.hbci.status;
 
+import org.kapott.hbci.manager.HBCIUtilsInternal;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import org.kapott.hbci.manager.HBCIUtilsInternal;
-
-/** <p>Enthält alle Status-Informationen zu genau einem Nachrichtenaustausch.
+/** <p>Enthï¿½lt alle Status-Informationen zu genau einem Nachrichtenaustausch.
     Es ist zu beachten, dass in einer Nachricht Informationen zu
-    <em>mehreren</em> Geschäftsvorfällen enthalten sein können, wenn die
-    gesendete Nachricht mehrere Aufträge enthalten hat.
+    <em>mehreren</em> Geschï¿½ftsvorfï¿½llen enthalten sein kï¿½nnen, wenn die
+    gesendete Nachricht mehrere Auftrï¿½ge enthalten hat.
     </p><p>
     Die direkte Auswertung
     der Felder dieser Klasse wird nicht empfohlen, statt dessen sollten nur
     die Methoden benutzt werden, die den prinzipiellen Status (OK oder nicht OK)
-    sowie die eigentlichen Fehler-Informationen zurückgeben. </p>*/
-public final class HBCIMsgStatus
-{
+    sowie die eigentlichen Fehler-Informationen zurï¿½ckgeben. </p>*/
+public final class HBCIMsgStatus implements Serializable {
     /** Globale Status-Informationen. Das sind Informationen, die die
         Nachricht als ganzes betreffen (z.B. wenn die Nachricht nicht signiert
-        oder verschlüsselt war, oder wenn sie nicht dekodiert werden konnte etc.) */
+        oder verschlï¿½sselt war, oder wenn sie nicht dekodiert werden konnte etc.) */
     public HBCIStatus globStatus;
     /** Status-Informationen, die einzelne Segmente der Nachricht betreffen.
-        Hier werden alle Rückgabecodes gespeichert, die sich konkret auf
+        Hier werden alle Rï¿½ckgabecodes gespeichert, die sich konkret auf
         einzelne Segmente der gesendeten Nachricht beziehen. */
     public HBCIStatus segStatus;
     
@@ -120,8 +119,8 @@ public final class HBCIMsgStatus
     }
     
     /** <p>Gibt den eigentlichen Inhalt sowohl der gesendeten wie auch der
-        empfangenen Nachricht zurück. Die <em>keys</em> des Property-Objektes
-        enthalten die Lowlevelnamen der Datenelemente, die dazugehörigen
+        empfangenen Nachricht zurï¿½ck. Die <em>keys</em> des Property-Objektes
+        enthalten die Lowlevelnamen der Datenelemente, die dazugehï¿½rigen
         <em>values</em> enthalten jeweils den Wert des entsprechenden Datenelementes.
         Die Bezeichnungen der Datenelemente der <em>gesendeten</em> Nachricht tragen
         zur Unterscheidung mit den Datenelementen der empfangenen Nachricht das
@@ -131,8 +130,8 @@ public final class HBCIMsgStatus
         return data;
     }
     
-    /** Gibt zurück, ob bei der Ausführung eines Nachrichtenaustauschs Exceptions
-        aufgetreten sind. Diese Exceptions können entweder beim Erzeugen bzw.
+    /** Gibt zurï¿½ck, ob bei der Ausfï¿½hrung eines Nachrichtenaustauschs Exceptions
+        aufgetreten sind. Diese Exceptions kï¿½nnen entweder beim Erzeugen bzw.
         Versenden der Kundennachricht oder aber beim Empfangen und Auswerten
         der Institutsnachricht aufgetreten sein.
         @return <code>true</code>, wenn Exceptions aufgetreten sind, sonst
@@ -142,21 +141,21 @@ public final class HBCIMsgStatus
         return globStatus.hasExceptions();
     }
     
-    /** Gibt die Exceptions zurück, ob bei der Ausführung eines 
-        Nachrichtenaustauschs aufgetreten sind. Diese Exceptions können entweder 
+    /** Gibt die Exceptions zurï¿½ck, ob bei der Ausfï¿½hrung eines 
+        Nachrichtenaustauschs aufgetreten sind. Diese Exceptions kï¿½nnen entweder 
         beim Erzeugen bzw. Versenden der Kundennachricht oder aber beim Empfangen 
         und Auswerten der Institutsnachricht aufgetreten sein.
         @return Array mit aufgetretenen Exceptions, ist niemals <code>null</code>,
-                 kann aber die Länge 0 haben */
+                 kann aber die Lï¿½nge 0 haben */
     public Exception[] getExceptions()
     {
         return globStatus.getExceptions();
     }
 
-    /** Gibt zurück, ob ein Nachrichtenaustausch erfolgreich durchgeführt wurde. Das
+    /** Gibt zurï¿½ck, ob ein Nachrichtenaustausch erfolgreich durchgefï¿½hrt wurde. Das
         ist dann der Fall, wenn bei der Abarbeitung keine Exceptions aufgetreten
         sind und die Antwortnachricht eine Erfolgsmeldung oder zumindest
-        nur Warnungen (aber keine Fehlermeldung) enthält.
+        nur Warnungen (aber keine Fehlermeldung) enthï¿½lt.
         @return <code>true</code>, wenn die Nachricht erfolgreich abgearbeitet
                 wurde, sonst <code>false</code> */
     public boolean isOK()
@@ -166,8 +165,8 @@ public final class HBCIMsgStatus
         return globStatus.getStatusCode()==HBCIStatus.STATUS_OK;
     }
     
-    /** Gibt einen String zurück, der alle aufgetretenen Fehler bei der 
-        Durchführung des Nachrichtenaustauschs beschreibt. Dieser String besteht aus
+    /** Gibt einen String zurï¿½ck, der alle aufgetretenen Fehler bei der 
+        Durchfï¿½hrung des Nachrichtenaustauschs beschreibt. Dieser String besteht aus
         allen Exception-Meldungen sowie allen evtl. empfangenen Fehlermeldungen.
         Die Meldungen werden aus den einzelnen 
         {@link org.kapott.hbci.status.HBCIStatus}-Objekten durch 
@@ -186,13 +185,13 @@ public final class HBCIMsgStatus
     }
     
     /** Fasst alle Status-Informationen zu einem Nachrichtenaustausch in einem einzigen
-        String zusammen und gibt diesen zurück. Dazu gehören alle evtl. 
+        String zusammen und gibt diesen zurï¿½ck. Dazu gehï¿½ren alle evtl. 
         aufgetretenen Exception-Meldungen, alle Fehlermeldungen, Warnungen sowie
         Erfolgsmeldungen. Die Meldungen werden aus den einzelnen 
         {@link org.kapott.hbci.status.HBCIStatus}-Objekten durch 
         Aufruf der Methode {@link org.kapott.hbci.status.HBCIStatus#toString()}
         erzeugt. 
-        @return einen String, der alle Status-Informationen zu einer Nachricht enthält */
+        @return einen String, der alle Status-Informationen zu einer Nachricht enthï¿½lt */
     public String toString()
     {
         StringBuffer ret=new StringBuffer();
@@ -203,7 +202,7 @@ public final class HBCIMsgStatus
     }
     
     /** 
-     * Gibt zurück, ob der Fehler "PIN ungültig" zurückgemeldet wurde
+     * Gibt zurï¿½ck, ob der Fehler "PIN ungï¿½ltig" zurï¿½ckgemeldet wurde
      * @return <code>true</code> oder <code>false</code> */
     public boolean isInvalidPIN()
     {

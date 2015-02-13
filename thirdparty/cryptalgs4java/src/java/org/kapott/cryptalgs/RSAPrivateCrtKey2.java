@@ -1,4 +1,3 @@
-
 /*  $Id: RSAPrivateCrtKey2.java,v 1.1 2011/05/04 22:37:58 willuhn Exp $
 
     This file is part of CryptAlgs4Java
@@ -18,17 +17,12 @@
     along with this program; if not, write to the Free Software
     Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
-
 package org.kapott.cryptalgs;
 
 import java.math.BigInteger;
 import java.security.PrivateKey;
-
-public class RSAPrivateCrtKey2
-    implements PrivateKey
-{
-    private final static long serialVersionUID=1;
-    
+public class RSAPrivateCrtKey2 implements PrivateKey {
+    private final static long serialVersionUID = 1;
     private BigInteger p;
     private BigInteger q;
     private BigInteger dP;
@@ -36,73 +30,60 @@ public class RSAPrivateCrtKey2
     private BigInteger qInv;
     private BigInteger Ap;
     private BigInteger Aq;
-    
-    public RSAPrivateCrtKey2(BigInteger p,BigInteger q,BigInteger dP,BigInteger dQ,BigInteger qInv)
-    {
-        this.p=p;
-        this.q=q;
-        this.dP=dP;
-        this.dQ=dQ;
-        this.qInv=qInv;
+
+    public RSAPrivateCrtKey2 (BigInteger p, BigInteger q, BigInteger dP, BigInteger dQ, BigInteger qInv) {
+        this.p = p;
+        this.q = q;
+        this.dP = dP;
+        this.dQ = dQ;
+        this.qInv = qInv;
     }
-    
-    public BigInteger getP()
-    {
+
+    public BigInteger getP () {
         return this.p;
     }
 
-    public BigInteger getQ()
-    {
+    public BigInteger getQ () {
         return this.q;
     }
 
-    public BigInteger getdP()
-    {
+    public BigInteger getdP () {
         return this.dP;
     }
 
-    public BigInteger getdQ()
-    {
+    public BigInteger getdQ () {
         return this.dQ;
     }
 
-    public BigInteger getQInv()
-    {
+    public BigInteger getQInv () {
         return this.qInv;
     }
 
-    public byte[] getEncoded()
-    {
+    public byte[] getEncoded () {
         return null;
     }
-    
-    public String getAlgorithm()
-    {
+
+    public String getAlgorithm () {
         return "RSA";
     }
-    
-    public String getFormat()
-    {
+
+    public String getFormat () {
         return null;
     }
-    
-    public void setAp(BigInteger ap)
-    {
-        this.Ap=ap;
+
+    public void setAp (BigInteger ap) {
+        this.Ap = ap;
     }
-    
-    public BigInteger getAp()
-    {
+
+    public BigInteger getAp () {
         return this.Ap;
     }
 
-    public void setAq(BigInteger aq)
-    {
-        this.Aq=aq;
+    public void setAq (BigInteger aq) {
+        this.Aq = aq;
     }
-    
-    public BigInteger getAq()
-    {
+
+    public BigInteger getAq () {
         return this.Aq;
     }
 }
