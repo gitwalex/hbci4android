@@ -19,7 +19,6 @@
 */
 package org.kapott.hbci.manager;
 
-import org.kapott.cryptalgs.CryptAlgs4JavaProvider;
 import org.kapott.hbci.GV_Result.GVRKUms;
 import org.kapott.hbci.callback.HBCICallback;
 import org.kapott.hbci.comm.Comm;
@@ -35,7 +34,6 @@ import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.Security;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -1115,9 +1113,9 @@ public final class HBCIUtils {
             initThread(props, callback);
             HBCIUtils.log("This is " + version(), HBCIUtils.LOG_INFO);
             //            refreshBLZList(HBCIUtils.class.getClassLoader());
-            if (Security.getProvider("CryptAlgs4Java") == null) {
-                Security.addProvider(new CryptAlgs4JavaProvider());
-            }
+            //            if (Security.getProvider("CryptAlgs4Java") == null) {
+            //                Security.addProvider(new CryptAlgs4JavaProvider());
+            //            }
         } catch (Exception e) {
             throw new HBCI_Exception("*** error while initializing HBCI4Java",
                     e);
