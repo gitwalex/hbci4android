@@ -4,6 +4,28 @@
     <root id="archive" name="hbci4android.jar">
       <element id="module-output" name="hbci4android" />
       <element id="module-output" name="thirdparty_cryptalgs4java" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/blz.properties" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/challengedata.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/container.nnn.003.02.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci-201.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci-210.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci-220.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci-300.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci-plus.xml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci.dtd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/hbci.properties.template" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/messages.properties" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/messages_de.properties" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.001.001.02.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.001.002.02.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.001.002.03.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.001.003.03.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.002.002.02.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.002.003.03.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.008.001.01.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.008.002.01.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.008.002.02.xsd" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/pain.008.003.02.xsd" />
     </root>
   </artifact>
 </component>

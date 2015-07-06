@@ -43,28 +43,6 @@ import java.util.Properties;
  */
 public interface HBCICallback extends HBCICallbackKonstanten {
     /**
-     * Wird aufgerufen, wenn der HBCI-Kernel eine Log-Ausgabe erzeugt.
-     * <em>HBCI4Java</em> gibt Logging-Ausgaben nicht selbst auf irgendeinem
-     * Device aus, sondern sendet diese mit Hilfe der Methode
-     * <code>log(...)</code> an die Anwendung. Diese muss selbst entscheiden,
-     * was mit der Information geschehen soll (einfach ignorieren, abspeichern,
-     * dem Nutzer anzeigen, ...).
-     *
-     * @param msg die eigentliche Text-Meldung des HBCI-Kernels
-     * @param level Loglevel, welcher die "Wichtigkeit" dieser Meldung angibt.
-     * Die m�glichen Werte daf�r sind in {@link org.kapott.hbci.manager.HBCIUtils}
-     * definiert und lauten <ul> <li><code>LOG_CHIPCARD</code></li>
-     * <li><code>LOG_DEBUG</code></li> <li><code>LOG_INFO</code></li>
-     * <li><code>LOG_WARN</code></li> <li><code>LOG_ERR</code></li> </ul>
-     * @param date Zeitpunkt, zu dem die Logausgabe generiert wurde
-     * @param trace ein <code>StackTrace</code>-Element, welches die Stelle im
-     * Code beschreibt, an der die Logausgabe erzeugt wurde (kann benutzt
-     * werden, um die Klasse, Methode, Zeilennummer etc. des Aufrufes zu
-     * ermitteln)
-     */
-    public void log (String msg, int level, Date date, StackTraceElement trace);
-
-    /**
      * Wird vom HBCI-Kernel aufgerufen, wenn die Interaktion mit der Anwendung
      * erforderlich ist. In bestimmten Situationen ben�tigt der HBCI-Kernel
      * zus�tzliche Daten bzw. muss auf die Ausf�hrung einer Aktion des Nutzers
@@ -112,6 +90,38 @@ public interface HBCICallback extends HBCICallbackKonstanten {
      */
     public void callback (HBCIPassport passport, int reason, String msg, int datatype, StringBuffer retData);
 
+    String getBLZData (String blz);
+
+    public Document getHBCISpezifikation (String hbciVersion);
+
+    /**
+     * Wird aufgerufen, wenn der HBCI-Kernel eine Log-Ausgabe erzeugt.
+     * <em>HBCI4Java</em> gibt Logging-Ausgaben nicht selbst auf irgendeinem
+     * Device aus, sondern sendet diese mit Hilfe der Methode
+     * <code>log(...)</code> an die Anwendung. Diese muss selbst entscheiden,
+     * was mit der Information geschehen soll (einfach ignorieren, abspeichern,
+     * dem Nutzer anzeigen, ...).
+     *
+     * @param msg die eigentliche Text-Meldung des HBCI-Kernels
+     * @param level Loglevel, welcher die "Wichtigkeit" dieser Meldung angibt.
+     * Die m�glichen Werte daf�r sind in {@link org.kapott.hbci.manager.HBCIUtils}
+     * definiert und lauten <ul> <li><code>LOG_CHIPCARD</code></li>
+     * <li><code>LOG_DEBUG</code></li> <li><code>LOG_INFO</code></li>
+     * <li><code>LOG_WARN</code></li> <li><code>LOG_ERR</code></li> </ul>
+     * @param date Zeitpunkt, zu dem die Logausgabe generiert wurde
+     * @param trace ein <code>StackTrace</code>-Element, welches die Stelle im
+     * Code beschreibt, an der die Logausgabe erzeugt wurde (kann benutzt
+     * werden, um die Klasse, Methode, Zeilennummer etc. des Aufrufes zu
+     * ermitteln)
+     */
+    public void log (String msg, int level, Date date, StackTraceElement trace);
+
+    /**
+     * Kurzform f�r {@link #status(HBCIPassport, int, Object[])} f�r den Fall,
+     * dass das <code>Object[]</code> nur ein einziges Objekt enth�lt
+     */
+    public void status (HBCIPassport passport, int statusTag, Object o);
+
     /**
      * Wird vom HBCI-Kernel aufgerufen, um einen bestimmten Status der
      * Abarbeitung bekanntzugeben.
@@ -132,12 +142,6 @@ public interface HBCICallback extends HBCICallbackKonstanten {
     public void status (HBCIPassport passport, int statusTag, Object[] o);
 
     /**
-     * Kurzform f�r {@link #status(HBCIPassport, int, Object[])} f�r den Fall,
-     * dass das <code>Object[]</code> nur ein einziges Objekt enth�lt
-     */
-    public void status (HBCIPassport passport, int statusTag, Object o);
-
-    /**
      * <p>Legt fest, ob ein Callback asynchron oder �ber den
      * threaded-callback-Mechanismus behandelt werden soll. Im "Normalfall" gibt
      * diese Methode <code>false</code> zur�ck, womit die asynchrone
@@ -155,7 +159,5 @@ public interface HBCICallback extends HBCICallbackKonstanten {
      * <code>README.ThreadedCallbacks</code>.</p>
      */
     public boolean useThreadedCallback (HBCIPassport passport, int reason, String msg, int datatype, StringBuffer retData);
-
-    public Document getHBCISpezifikation (String hbciVersion);
 }
 
