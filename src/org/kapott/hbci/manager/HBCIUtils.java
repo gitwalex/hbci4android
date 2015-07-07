@@ -1094,12 +1094,12 @@ public final class HBCIUtils {
      * Laden verschiedener Dateien aus dem <em>HBCI4Java</em>-Classpath (Dateien
      * für die Lokalisierung von Nachrichten, Verzeichnis der Banken usw.) sowie
      * das Initialisieren einiger interner Datenstrukturen. <p> Zusätzlich wird
-     * in dieser Methode die Methode {@link #initThread(Properties, HBCICallback)}
-     * aufgerufen, um alle Datenstrukturen, die <code>ThreadGroup</code>-weise
-     * verwaltet werden, für die aktuelle <code>ThreadGroup</code> zu
-     * initialisieren. Siehe dazu auch die Dokumentation zu {@link
-     * #initThread(Properties, HBCICallback)} sowie die Datei
-     * <code>README.MultiThread</code>. </p>
+     * in dieser Methode die Methode {@link #initThread(Properties,
+     * HBCICallback)} aufgerufen, um alle Datenstrukturen, die
+     * <code>ThreadGroup</code>-weise verwaltet werden, für die aktuelle
+     * <code>ThreadGroup</code> zu initialisieren. Siehe dazu auch die
+     * Dokumentation zu {@link #initThread(Properties, HBCICallback)} sowie die
+     * Datei <code>README.MultiThread</code>. </p>
      *
      * @param props <code>Properties</code>-Objekt mit Initialisierungs-Werten
      * für die Kernel-Parameter. Darf <code>null</code> sein.
@@ -1112,7 +1112,7 @@ public final class HBCIUtils {
         try {
             initThread(props, callback);
             HBCIUtils.log("This is " + version(), HBCIUtils.LOG_INFO);
-            //            refreshBLZList(HBCIUtils.class.getClassLoader());
+            refreshBLZList(HBCIUtils.class.getClassLoader());
             //            if (Security.getProvider("CryptAlgs4Java") == null) {
             //                Security.addProvider(new CryptAlgs4JavaProvider());
             //            }
@@ -1456,7 +1456,7 @@ public final class HBCIUtils {
             throw new InvalidUserDataException(
                     HBCIUtilsInternal.getLocMsg("EXCMSG_BLZLOAD", blzpath));
         }
-        //       refreshBLZList(f);
+        refreshBLZList(f);
         f.close();
     }
 

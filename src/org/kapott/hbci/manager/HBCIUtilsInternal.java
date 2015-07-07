@@ -71,7 +71,7 @@ public class HBCIUtilsInternal {
     }
 
     public static String getBLZData (String blz) {
-        return getCallback().getBLZData(blz);
+        return blz != null ? blzs.getProperty(blz, "|||||") : "|||||";
     }
 
     public static HBCICallback getCallback () {

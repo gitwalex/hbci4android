@@ -90,8 +90,6 @@ public interface HBCICallback extends HBCICallbackKonstanten {
      */
     public void callback (HBCIPassport passport, int reason, String msg, int datatype, StringBuffer retData);
 
-    String getBLZData (String blz);
-
     public Document getHBCISpezifikation (String hbciVersion);
 
     /**
